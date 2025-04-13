@@ -1,3 +1,4 @@
+const { error } = require("console");
 const logger = require("../config/logger-config");
 const AppError = require("../utils/errors/app-error");
 const { StatusCodes } = require('http-status-codes');
@@ -27,6 +28,9 @@ class CrudRepository{
                   id:data
                }
             });
+            if(!response){
+              throw new AppError('Not able to found data',StatusCodes.NOT_FOUND);   // direct db connection
+            }
            return response;
         } catch (error) {
           logger.error('Error in crud repository : Destory ');

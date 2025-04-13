@@ -42,10 +42,25 @@ async function getAirplane(id){
      throw error;
   }
 }
+
+async function deleteAirplane(id){
+  try {
+    const response = await airplaneRepository.destroy(id);
+    return response;
+  } catch (error) {
+    if(error.statusCode === StatusCodes.NOT_FOUND){
+       throw new AppError('The airplane data is not found',StatusCodes.NOT_FOUND);
+    }
+     console.log("Error in delete in service layer");     // custom error
+     throw error;
+  }
+}
+
 //  Export as an object
 module.exports = {
   createAirplane,
   getAirplanes,
-  getAirplane
+  getAirplane,
+  deleteAirplane
 };
 

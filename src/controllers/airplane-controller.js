@@ -54,12 +54,28 @@ async function getAirplaneController(req,res){
      .json(ErrorResponse);
   }
 }
+async function deleteAirplaneController(req,res){
+  try {
+     const response = await AirplaneService.deleteAirplane(req.params.id);
+     SuccessResponse.data=response;
+     return res
+     .status(StatusCodes.NO_CONTENT)
+     .json(response);
+  } catch (error) {
+     console.log("Error in delete in controller layer",error);
+     ErrorResponse.error=error;
+     const status = error.statusCode ;
+     return res
+     .status(status)
+     .json(ErrorResponse)
+  }
+}
 
 module.exports = {
   createAirplaneController,
   getAirplanesController,
-  getAirplaneController
-
+  getAirplaneController,
+  deleteAirplaneController
 };
 
 
