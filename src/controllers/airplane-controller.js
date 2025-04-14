@@ -70,12 +70,40 @@ async function deleteAirplaneController(req,res){
      .json(ErrorResponse)
   }
 }
+ 
+async function updateAirplaneController(req, res) {
+  try {
+    const airplane = await AirplaneService.updateAirplane({
+      id: req.params.id,
+      data: req.body
+    });
+
+    SuccessResponse.data = airplane;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    console.log("Error in updating airplane controller layer", error);
+
+    const status = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+
+    ErrorResponse.message = "Unable to update airplane";
+    ErrorResponse.error = {
+      statusCode: status,
+      explaination: error.explaination || "Something went wrong"
+    };
+
+    return res.status(status).json(ErrorResponse);
+  }
+}
+
+
+  
 
 module.exports = {
   createAirplaneController,
   getAirplanesController,
   getAirplaneController,
-  deleteAirplaneController
+  deleteAirplaneController,
+  updateAirplaneController
 };
 
 

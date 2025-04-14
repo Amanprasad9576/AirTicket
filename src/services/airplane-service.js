@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const { AirplaneRepository } = require("../repositories");
 const { SuccessResponse } = require("../utils/common");
 const AppError = require("../utils/errors/app-error");
+const { airplaneController } = require("../controllers");
 
 // Instantiate the repository
 const airplaneRepository = new AirplaneRepository();
@@ -56,11 +57,22 @@ async function deleteAirplane(id){
   }
 }
 
+async function updateAirplane({id,data}){
+  try {
+      const airplane = await airplaneRepository.update(id,data);
+      return airplane;
+  } catch (error) {
+     console.log("Error in update airplane service layer",error);
+     throw error;
+  }
+}
+
 //  Export as an object
 module.exports = {
   createAirplane,
   getAirplanes,
   getAirplane,
-  deleteAirplane
+  deleteAirplane,
+  updateAirplane
 };
 
