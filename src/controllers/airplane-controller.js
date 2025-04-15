@@ -31,7 +31,7 @@ async function getAirplanesController (req,res){
      .json(SuccessResponse.data);
   } catch (error) {
      console.log("Error in fetching airplane controller",error);
-     ErrorResponse = error;
+     ErrorResponse.error = error;
      return res
      .status(StatusCodes.INTERNAL_SERVER_ERROR)
      .json(ErrorResponse);
@@ -40,6 +40,8 @@ async function getAirplanesController (req,res){
 
 async function getAirplaneController(req,res){
   try {
+    console.log('In createAirplaneController');
+
      const response = await AirplaneService.getAirplane(req.params.id);
      SuccessResponse.data= response;
      return res
@@ -54,13 +56,19 @@ async function getAirplaneController(req,res){
      .json(ErrorResponse);
   }
 }
+
 async function deleteAirplaneController(req,res){
   try {
      const response = await AirplaneService.deleteAirplane(req.params.id);
      SuccessResponse.data=response;
      return res
-     .status(StatusCodes.NO_CONTENT)
-     .json(response);
+     .status(StatusCodes.OK)
+     .json({
+       success: true,
+       message: "Airplane deleted successfully",
+       data: response
+     });
+   
   } catch (error) {
      console.log("Error in delete in controller layer",error);
      ErrorResponse.error=error;
@@ -97,7 +105,6 @@ async function updateAirplaneController(req, res) {
 
 
   
-
 module.exports = {
   createAirplaneController,
   getAirplanesController,

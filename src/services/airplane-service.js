@@ -1,8 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
-const { AirplaneRepository } = require("../repositories");
-const { SuccessResponse } = require("../utils/common");
+const  { AirplaneRepository }  = require("../repositories");
+//const { SuccessResponse } = require("../utils/common");
 const AppError = require("../utils/errors/app-error");
-const { airplaneController } = require("../controllers");
 
 // Instantiate the repository
 const airplaneRepository = new AirplaneRepository();

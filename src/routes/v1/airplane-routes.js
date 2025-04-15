@@ -1,25 +1,28 @@
 const express = require('express');
 
-const { airplaneController } = require('../../controllers');
+const { AirplaneController } = require('../../controllers');
 const { AirplaneMiddlewares } = require('../../middlewares')
 
 const router = express.Router();
+console.log('Hitting airplane POST route');
 
-// POST --> api/v1/airplanes
-router.post('/',AirplaneMiddlewares.validateCreateRequest,airplaneController.createAirplaneController);
+// /api/v1/airplanes POST
+router.post('/', 
+        AirplaneMiddlewares.validateCreateRequest,
+        AirplaneController.createAirplaneController);
 
-// GET --> api/v1/airplanes
-router.get('/',airplaneController.getAirplanesController);
+// /api/v1/airplanes GET
+router.get('/', AirplaneController.getAirplanesController);
+
+// /api/v1/airplanes/id/:id GET
+router.get('/id/:id',AirplaneController.getAirplaneController);
+
+// /api/v1/airplanes/id/:id DELETE
+router.delete('/id/:id',AirplaneController.deleteAirplaneController);
 
 
-// GET --> api/v1/airplanes/id
-router.get('/id/:id',airplaneController.getAirplaneController);
-
- // DELETE --> api/v1/airplanes/id
-router.delete('/id/:id',airplaneController.deleteAirplaneController);
-
-// PUT  -->api/v1/airplanes/id
-router.put('/id/:id',airplaneController.updateAirplaneController);
+// PUT  -->api/v1/airplanes/id/:id
+router.put('/id/:id',AirplaneController.updateAirplaneController);
 
 
 module.exports = router;
