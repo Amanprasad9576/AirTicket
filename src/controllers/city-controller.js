@@ -1,6 +1,7 @@
 const { StatusCodes }  = require("http-status-codes");
 const { ErrorResponse,SuccessResponse } = require("../utils/common");
 const { CityService } = require ("../services");
+const CityRepository = require("../repositories/city-repository");
 
 async function createCityController(req, res) {
     try {
@@ -62,10 +63,27 @@ async function createCityController(req, res) {
                 .json(ErrorResponse);
     }
   }
+
+  
+  async function getCitiesController(req,res){
+    try {
+      const city = await CityService.getCities();
+      SuccessResponse.data=city;
+      return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse.data);
+    } catch (error) {
+       console.log('Error in fetching data',error);
+       return res
+                 .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                 .json(ErrorResponse);
+    }
+  }
   
 
 module.exports = {
     createCityController,
     updateCityController,
-    deleteCityController
+    deleteCityController,
+    getCitiesController
 }

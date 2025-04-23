@@ -18,3 +18,11 @@ app.listen(serverConfig.PORT, () => {
 
 
 // implement the apiRoutes
+
+// Airport contains attribute name
+/*
+ 
+
+
+
+*/

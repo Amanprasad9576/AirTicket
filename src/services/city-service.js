@@ -31,10 +31,20 @@ async function deleteCity(data){
   }
 }
 
+async function getCities(){
+  try {
+     const city = await cityRepository.getAll();
+     return city;
+  } catch (error) {
+     console.log('Error in fetching',city);
+  }
+}
+
 module.exports = {
     createCity,
     updateCity,
-    deleteCity
+    deleteCity,
+    getCities
 }
 
 

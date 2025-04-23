@@ -5,7 +5,6 @@ const { Airplane } = require("../models");
 class AirplaneRepository extends CrudRepository {
   constructor() {
     console.log("Airplane Model:", Airplane);
-
     super(Airplane);
   }
 }

@@ -1,16 +1,15 @@
-const { error } = require("console");
 const logger = require("../config/logger-config");
 const AppError = require("../utils/errors/app-error");
 const { StatusCodes } = require('http-status-codes');
 
-class CrudRepository{
+class CrudRepository {
     constructor(model){
       this.model=model
     }
     async create(data){
         try {
           console.log("Received in repository create:", data);
-
+          
            const response = await this.model.create(data);
            console.log(response);
            return response;
