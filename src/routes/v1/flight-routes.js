@@ -8,4 +8,19 @@ router.post('/',FlightMiddlewares.validateCreateRequest,FlightController.createF
 
 router.get('/',FlightController.getAllFightsController);
 
+router.get('/id/:id',FlightController.getFlightController);
+
+router.patch('/id/:id/seats',FlightController.updateSeats);
+
+
 module.exports=router;
+
+
+
+// type of fetching data from Server side
+
+// Delete 
+// Get 
+// Put
+// Post
+// Patch 

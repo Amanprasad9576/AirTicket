@@ -42,12 +42,53 @@ async function getAllFightsController(req,res){
                  .json(error);
     }
 }
+ 
+async function getFlightController (req,res){
+    try {
+        const flight = await FlightService.getFlight(req.params.id);
+        SuccessResponse.data = flight;
+        return res
+                 .status(StatusCodes.OK)
+                 .json(SuccessResponse.data);
+    } catch (error) {
+       ErrorResponse = error;
+       console.log('Error in get flight controller',error);
+       return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(error);
+    }
+}
+
+async function updateSeats(req, res) {
+    try {
+        console.log(req.body);
+        const response = await FlightService.updateSeats({
+            flightId: req.params.id,
+            seats: req.body.seats, 
+            dec: req.body.dec
+        });
+        console.log(req.body);
+
+        SuccessResponse.data = response;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
 
 
 
 module.exports = {
    createFlightController,
-   getAllFightsController
+   getAllFightsController,
+   getFlightController,
+   updateSeats
 };
   
 

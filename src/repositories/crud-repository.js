@@ -6,10 +6,10 @@ class CrudRepository {
     constructor(model){
       this.model=model
     }
+
     async create(data){
         try {
           console.log("Received in repository create:", data);
-          
            const response = await this.model.create(data);
            console.log(response);
            return response;
@@ -45,10 +45,11 @@ class CrudRepository {
             }
            return response;
         } catch (error) {
-          logger.error('Error in crud repository : get ');
+          logger.error('Error in crud repository : get');
           throw error;
         }
     }
+
     async getAll(){
         try {
            const response = await this.model.findAll();
